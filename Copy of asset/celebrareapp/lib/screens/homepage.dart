@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
+//File by @ Sukant, Hosted on https://github.com/Cybogeek/celebare-projects/tree/main/Copy%20of%20asset/celebrareapp
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -35,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
           widget.title,
           style: GoogleFonts.quintessential(
             color: Theme.of(context).colorScheme.onBackground.withOpacity(0.75),
-            letterSpacing: 1.5,
+            letterSpacing: 1.2,
           ),
         ),
       ),
@@ -64,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text(
                     'Upload Image',
                     style: GoogleFonts.quintessential(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Theme.of(context)
                           .colorScheme
                           .onBackground
@@ -85,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text(
                       'Choose from Device',
                       style: GoogleFonts.lato(
-                        fontSize: 18,
+                        fontSize: 16,
                       ),
                     ),
                   ),
@@ -93,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           if (_finalImage != null) _finalImage!,

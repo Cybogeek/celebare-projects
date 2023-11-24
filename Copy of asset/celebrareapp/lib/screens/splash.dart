@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'homepage.dart';
 
+//File by @ Sukant, Hosted on https://github.com/Cybogeek/celebare-projects/tree/main/Copy%20of%20asset/celebrareapp
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key, required this.title});
   final String title;
@@ -12,6 +13,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
   void initState() {
     super.initState();
     _navigateToHome();

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:widget_mask/widget_mask.dart';
 
+//File by @ Sukant, Hosted on https://github.com/Cybogeek/celebare-projects/tree/main/Copy%20of%20asset/celebrareapp
+
 class UploadedImage extends StatefulWidget {
   const UploadedImage({super.key, required this.selectedImg});
   final File? selectedImg;
@@ -196,17 +198,18 @@ class _UploadedImageState extends State<UploadedImage> {
 
   WidgetMask _maskImage(File imageFile, int index) {
     final maskAssetPath =
-        'asset/user_image_frame_$index.png'; // Customize this to your mask
+        'asset/user_image_frame_$index.png'; // Shape-Image to mask
     final maskedFile = WidgetMask(
       blendMode: BlendMode.screen,
       mask: Image.file(
-        imageFile,
+        imageFile, // Base image to Mask
         alignment: Alignment.topCenter,
       ),
       child: Image.asset(
         maskAssetPath,
-        height: 150,
-        width: 200,
+        height:
+            150, // standard height for the shape to mask, can be made dynamic
+        width: 200, // standard width for the shape to mask, can be made dynamic
       ),
     );
     return maskedFile;
