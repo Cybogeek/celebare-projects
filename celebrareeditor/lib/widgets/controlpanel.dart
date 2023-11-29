@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:celebrareeditor/models/controls.dart';
 import 'package:celebrareeditor/provider/controlprovider.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_font_picker/flutter_font_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -107,11 +110,11 @@ class _ControlPanelState extends State<ControlPanel> {
           vertical: 8,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 id > 0
@@ -160,46 +163,49 @@ class _ControlPanelState extends State<ControlPanel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    NumberPicker(
-                      axis: Axis.horizontal,
-                      value: selectedFontSize,
-                      step: 2,
-                      minValue: 2,
-                      maxValue: 400,
-                      onChanged: (value) {
-                        context.read<ControlProvider>().updateText(
-                            id, null, null, null, null, null, value);
-                        context.read<ControlProvider>().fSize = value;
-                        setState(
-                          () => selectedFontSize = value,
-                        );
-                      },
-                    ),
-                    // DropdownMenu<int>(
-                    //   inputDecorationTheme:
-                    //       InputDecorationTheme(border: InputBorder.none),
-                    //   initialSelection: selectedFontSize,
-                    //   label: const Text('SIZE'),
-                    //   requestFocusOnTap: true,
-                    //   menuHeight: 250,
-                    //   controller: fontSizeController,
-                    //   onSelected: (int? value) {
-                    //     // This is called when the user selects an item.
-                    //     context.read<ControlProvider>().updateText(
-                    //         id, null, null, null, null, null, value);
-                    //     context.read<ControlProvider>().fSize = value!;
-                    //     setState(() {
-                    //       selectedFontSize = value;
-                    //     });
-                    //   },
-                    //   dropdownMenuEntries:
-                    //       fontsizes().map<DropdownMenuEntry<int>>((int value) {
-                    //     return DropdownMenuEntry<int>(
-                    //       value: value,
-                    //       label: value.toString(),
-                    //     );
-                    //   }).toList(),
-                    // ),
+                    Platform.isWindows
+                        ? DropdownMenu<int>(
+                            inputDecorationTheme:
+                                InputDecorationTheme(border: InputBorder.none),
+                            initialSelection: selectedFontSize,
+                            label: const Text('SIZE'),
+                            requestFocusOnTap: true,
+                            menuHeight: 250,
+                            controller: fontSizeController,
+                            onSelected: (int? value) {
+                              // This is called when the user selects an item.
+                              context.read<ControlProvider>().updateText(
+                                  id, null, null, null, null, null, value);
+                              context.read<ControlProvider>().fSize = value!;
+                              setState(() {
+                                selectedFontSize = value;
+                              });
+                            },
+                            dropdownMenuEntries: fontsizes()
+                                .map<DropdownMenuEntry<int>>((int value) {
+                              return DropdownMenuEntry<int>(
+                                value: value,
+                                label: value.toString(),
+                              );
+                            }).toList(),
+                          )
+                        : Expanded(
+                            child: NumberPicker(
+                              axis: Axis.horizontal,
+                              value: selectedFontSize,
+                              step: 2,
+                              minValue: 2,
+                              maxValue: 400,
+                              onChanged: (value) {
+                                context.read<ControlProvider>().updateText(
+                                    id, null, null, null, null, null, value);
+                                context.read<ControlProvider>().fSize = value;
+                                setState(
+                                  () => selectedFontSize = value,
+                                );
+                              },
+                            ),
+                          ),
                   ],
                 ),
                 TextButton.icon(
@@ -214,6 +220,9 @@ class _ControlPanelState extends State<ControlPanel> {
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: screenW < 500.0 ? 0 : 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
